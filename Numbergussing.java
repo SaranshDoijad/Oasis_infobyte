@@ -3,7 +3,9 @@ import java.util.Scanner;
 import javax.swing.*;
 
 class Game {
-    int compno, no,count=1;
+    int no;
+    static int compno, count = 1;
+
     Scanner sc = new Scanner(System.in);
 
     public void generated_no() {
@@ -11,38 +13,40 @@ class Game {
         compno = rand.nextInt(100);
     }
 
-    public void diaglogbox()
-    {
-        JFrame frame = new JFrame("Main Window");
-      
-       JOptionPane.showMessageDialog(frame, "Enter the number","Number Guessing Game", JOptionPane.ERROR_MESSAGE);
- 
-       frame.setSize(600,600);
-       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       frame.setVisible(true);
-    }
+    public void diaglogbox() {
+        try {
+            while (no != compno) {
 
-    public void input() {
-        System.out.println("Guess the number");
-        no = sc.nextInt();
-    }
+                JFrame frame = new JFrame("Main Window");
+                frame.setSize(600, 600);
 
-    boolean condition() {
-        if (no == compno) {
-            System.out.println("Number you guess is correct");
-            System.out.println("Number of guesses are: "+count);
-            return true;
-        } else if (no < compno) {
-            System.out.println("Number is to Low !!!!");
-            System.out.println("Number of attempts are: "+count);
-            count++;
-        } else if (no > compno) {
-            System.out.println("Number is to High !!!!");
-            System.out.println("Number of attempts are: "+count);
-            count++;
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setVisible(true);
+
+                String no1 = JOptionPane.showInputDialog(frame, "Enter the number");
+                no = Integer.parseInt(no1);
+
+                JOptionPane.showMessageDialog(null, " " + condition(no));
+                count++;
+            }
+        } catch (Exception e) {
+
         }
+    }
 
-        return false;
+    public static String condition(int no2) {
+        if (no2 == compno) {
+            return "Number you guess is correct \n Number of guesses are:" + count;
+
+        } else if (no2 < compno) {
+            return "Number is to Low !!!! \n Number of attempts are: " + count;
+
+        } else if (no2 > compno) {
+            return "Number is to High !!!! \n Number of attempts are: " + count;
+
+        }
+        return null;
+
     }
 }
 
@@ -53,13 +57,6 @@ class Numbergussing {
         Game g = new Game();
         g.generated_no();
         g.diaglogbox();
-        boolean b = false;
-        while (!b) {
-            g.input();
-            b = g.condition();
-
-        }
 
     }
-
 }
